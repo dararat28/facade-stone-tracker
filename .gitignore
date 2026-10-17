@@ -1,0 +1,9 @@
+tools/_cache/
+__pycache__/
+*.pyc
+fab-sheets/_archive/
+fab-sheets/_imports.json
+stl/_archive/
+stl/_imports.json
+_archive/
+_incoming/

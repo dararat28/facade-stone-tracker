@@ -1,0 +1,8 @@
+# Line endings and binary files for this repository
+* text=auto eol=lf
+*.bat text eol=crlf
+*.bin binary
+*.stl binary
+*.pdf binary
+*.png binary
+*.zip binary

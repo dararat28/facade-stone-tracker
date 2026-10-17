@@ -1,0 +1,43 @@
+# Publishes the dashboard to GitHub Pages on every push to main.
+# Settings > Pages > Build and deployment > Source: "GitHub Actions".
+name: Publish dashboard
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Refresh the PDF and STL indexes (picks up files uploaded to fab-sheets/ and stl/)
+        run: python tools/library.py index
+      - name: Collect the site files
+        run: |
+          mkdir _site
+          mkdir -p stl
+          cp -r index.html assets data geom fab-sheets stl vendor _site/
+          rm -rf _site/fab-sheets/_archive _site/fab-sheets/_imports.json _site/stl/_archive _site/stl/_imports.json
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

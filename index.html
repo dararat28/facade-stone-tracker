@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Façade Stone Tracker</title>
+<meta name="description" content="Vancouver Washington Temple façade stones: IFC model, manufacturing parameters, Fab Sheet PDFs and STL files in one page.">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body data-page="overview">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.8"/><path d="M10.6 10.6 14 14"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 16 16"><path d="M8 10.5V2.5M5 5.5l3-3 3 3M2.5 10.5v3h11v-3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.2"/><path d="M6.3 6.2a1.8 1.8 0 1 1 2.4 1.7c-.5.2-.7.6-.7 1.1v.3M8 11.6v.1"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 16 16"><path d="M8 1.8 13.6 5v6L8 14.2 2.4 11V5zM2.4 5 8 8.2 13.6 5M8 8.2v6"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 16 16"><path d="M2.5 2.5h5.2l5.8 5.8-5.2 5.2-5.8-5.8zM5.4 5.4h.1"/></symbol>
+  <symbol id="i-file" viewBox="0 0 16 16"><path d="M4 1.8h5l3 3v9.4H4zM9 1.8v3h3M6 8.5h4M6 11h4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 16 16"><path d="M8 2 14.5 13.5h-13zM8 6.5v3.2M8 11.6v.1"/></symbol>
+  <symbol id="i-home" viewBox="0 0 16 16"><path d="M2.5 7.5 8 2.8l5.5 4.7M4 6.5v6.7h8V6.5"/></symbol>
+  <symbol id="i-target" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4.5"/><path d="M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M13.5 2.5 9 7M6.5 13.5h-4v-4M2.5 13.5 7 9"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 16 16"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M11.5 9.5v4h-9v-9h4"/></symbol>
+  <symbol id="i-x" viewBox="0 0 16 16"><path d="m4 4 8 8M12 4l-8 8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="m3 8.5 3 3 7-7"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 16 16"><path d="M8 2 14 5.2 8 8.4 2 5.2zM2 8l6 3.2L14 8M2 10.8 8 14l6-3.2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 16 16"><path d="M3.5 14V2.5M3.5 3h8l-1.8 3 1.8 3h-8"/></symbol>
+  <symbol id="i-drill" viewBox="0 0 16 16"><circle cx="5" cy="8" r="2"/><circle cx="11" cy="8" r="2"/><rect x="1.8" y="3" width="12.4" height="10" rx="1.2"/></symbol>
+  <symbol id="i-box" viewBox="0 0 16 16"><path d="M2.5 5 8 2l5.5 3v6L8 14l-5.5-3zM2.5 5 8 8l5.5-3M8 8v6"/><path d="M5.2 3.5 10.8 6.5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 16 16"><path d="M2.5 13.5h11M4.5 11V7.5M8 11V4M11.5 11V9"/></symbol>
+</svg>
+
+<header class="appbar">
+  <div class="brand"><div class="mark" aria-hidden="true"><svg class="i" viewBox="0 0 16 16"><path d="M1.5 3.5h6v4h-6zM8.5 3.5h6v4h-6zM1.5 8.5h3.5v4H1.5zM6 8.5h4v4H6zM11 8.5h3.5v4H11z"/></svg></div>
+    <div><b>Façade Stone Tracker</b><span id="projName">Loading project…</span></div></div>
+  <nav class="pnav" aria-label="Pages">
+    <button class="pn act" id="navOverview" type="button" aria-current="page"><svg class="i"><use href="#i-chart"/></svg>Overview</button>
+    <button class="pn" id="navModel" type="button"><svg class="i"><use href="#i-cube"/></svg>Model</button>
+  </nav>
+  <div class="search" role="combobox" aria-haspopup="listbox" aria-owns="sugg">
+    <svg class="i"><use href="#i-search"/></svg>
+    <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Ticket, Issue Status, T31=2, elevation, GlobalId, Revit ID" aria-label="Search stones" aria-controls="sugg">
+    <div id="sugg" class="sugg" role="listbox"></div>
+  </div>
+  <div class="acts">
+    <span class="srcbadge" id="srcBadge" hidden></span>
+    <button class="btn" id="btnImport" type="button"><svg class="i"><use href="#i-upload"/></svg>Import</button>
+    <button class="btn icon" id="btnHelp" type="button" aria-label="How the numbers are counted" title="How the numbers are counted"><svg class="i"><use href="#i-help"/></svg></button>
+  </div>
+</header>
+
+<section class="overview" id="overview" aria-label="Project overview"><div class="ov-in" id="ovBody"><div class="empty">Loading the IFC model data…</div></div></section>
+
+<div class="workspace" id="workspace" hidden>
+<section class="kpis" id="kpis" aria-label="Summary for the current filters"></section>
+<div class="scope" id="scope"></div>
+
+<main class="work">
+  <aside class="panel left" aria-label="Explorer">
+    <div class="filters">
+      <label class="f">Phase<select id="fPhase"><option value="">All phases</option></select></label>
+      <label class="f">Issue Status<select id="fIssue"><option value="">All</option></select></label>
+      <label class="f">T-31 holes<select id="fT31">
+        <option value="">All</option>
+        <option value="either">Any T-31 count</option>
+        <option value="t31">T-31-Count set</option>
+        <option value="t30">T-31(30mm.)-Count set</option>
+        <option value="none">No T-31 count</option>
+        <option value="invalid">Invalid or empty value</option>
+      </select></label>
+      <label class="f">Files<select id="fFiles">
+        <option value="">All</option>
+        <option value="nopdf">No Fab Sheet PDF</option>
+        <option value="stl">Has STL file</option>
+        <option value="stl-missing">STL expected, missing</option>
+        <option value="stl-extra">STL without STL status</option>
+      </select></label>
+      <label class="f">Finish<select id="fFinish"><option value="">All finishes</option></select></label>
+      <label class="f">Checks<select id="fFlag">
+        <option value="">All</option>
+        <option value="mixed">Ticket with mixed Issue Status</option>
+        <option value="dims">Suspect dimension</option>
+        <option value="pos">Placement repaired</option>
+        <option value="away">Isolated stone</option>
+      </select></label>
+    </div>
+    <div class="ph"><svg class="i"><use href="#i-layers"/></svg><h2>Elevations</h2><small>IFC elements</small><button class="linkbtn" id="btnClear" type="button">Clear filters</button></div>
+    <div class="elevs"><table class="et"><thead><tr><th>Elevation</th><th>IFC</th></tr></thead><tbody id="elevBody"></tbody></table></div>
+    <div class="tabs" role="tablist">
+      <button class="tab act" id="tabRec" role="tab" aria-selected="true" type="button">Records <span class="n" id="nRec">0</span></button>
+      <button class="tab" id="tabDq" role="tab" aria-selected="false" type="button">Data quality <span class="n" id="nDq">0</span></button>
+    </div>
+    <div class="scroll" id="recWrap"><table class="rt"><thead><tr><th>Ticket</th><th>Elev.</th><th class="n" title="IFC elements">IFC</th><th title="Issue Status group">Issue</th><th class="n" title="T-31-Count / T-31(30mm.)-Count (·30)">T-31</th><th>Files</th></tr></thead><tbody id="recBody"></tbody></table><div class="more" id="recMore"></div></div>
+    <div class="scroll dq" id="dqWrap" hidden></div>
+  </aside>
+
+  <section class="viewer" aria-label="3D model">
+    <canvas id="gl"></canvas>
+    <div class="vbar">
+      <div class="seg" role="group" aria-label="Views">
+        <button class="btn" data-view="home" type="button" title="Revit default 3D view (front-right-top)"><svg class="i"><use href="#i-home"/></svg>Home</button>
+        <button class="btn" data-view="top" type="button">Top</button>
+        <button class="btn" data-view="front" type="button" title="From the south (project north up)">Front</button>
+        <button class="btn" data-view="right" type="button" title="From the east">Right</button>
+        <button class="btn" data-view="back" type="button" title="From the north">Back</button>
+        <button class="btn" data-view="left" type="button" title="From the west">Left</button>
+      </div>
+      <div class="seg"><button class="btn" id="vFitSel" type="button" title="Zoom to the selection"><svg class="i"><use href="#i-target"/></svg>Selection</button></div>
+      <span class="sp"></span>
+      <div class="seg" role="group" aria-label="Other stones">
+        <button class="btn on" data-others="show" type="button">Show others</button>
+        <button class="btn" data-others="ghost" type="button">Ghost</button>
+        <button class="btn" data-others="hide" type="button">Hide</button>
+      </div>
+      <div class="seg">
+        <button class="btn on" id="vOrtho" type="button" aria-pressed="true" title="Orthographic like Revit's default 3D view">Ortho</button>
+        <button class="btn on" id="vCtx" type="button" aria-pressed="true" title="Windows, slabs and model text">Context</button>
+      </div>
+    </div>
+    <div class="vmsg" id="vmsg" role="status"></div>
+    <div class="loading" id="loading"><div class="box"><div class="t" id="loadTxt">Starting…</div><div class="track"><i id="loadBar"></i></div></div></div>
+    <div class="vfoot">
+      <svg class="axes" id="axes" viewBox="-32 -32 64 64" aria-label="Orientation"></svg>
+      <span class="chip" id="vinfo"></span>
+      <span class="sp"></span>
+      <span class="chip" title="Drag: orbit · Right-drag or Shift-drag: pan · Wheel: zoom · Double-click: orbit around a stone · Ctrl/Shift-click: add to selection">Drag orbit · Right-drag pan · Ctrl-click multi-select</span>
+    </div>
+  </section>
+
+  <aside class="panel right" aria-label="Selection">
+    <div class="tabs" role="tablist">
+      <button class="tab act" id="tabProps" role="tab" aria-selected="true" type="button"><svg class="i"><use href="#i-tag"/></svg>Properties</button>
+      <button class="tab" id="tabFab" role="tab" aria-selected="false" type="button"><svg class="i"><use href="#i-file"/></svg>Fab Sheet</button>
+    </div>
+    <div class="scroll" id="props" aria-live="polite"></div>
+    <div id="fab" hidden></div>
+  </aside>
+</main>
+</div>
+
+<dialog id="fullDlg" aria-labelledby="fullTitle">
+  <div class="dlg-h"><h2 id="fullTitle">Fab Sheet</h2><span id="fullTools" style="display:flex;gap:4px"></span><button class="btn" id="fullClose" type="button"><svg class="i"><use href="#i-x"/></svg>Close</button></div>
+  <div class="fs-body" id="fullBody" style="flex:1"></div>
+</dialog>
+
+<dialog id="stlDlg" aria-labelledby="stlTitle">
+  <div class="dlg-h"><h2 id="stlTitle">STL</h2><button class="btn" id="stlClose" type="button"><svg class="i"><use href="#i-x"/></svg>Close</button></div>
+  <div class="stl-info" id="stlInfo"></div>
+  <div class="stl-body" id="stlBody"></div>
+</dialog>
+
+<dialog id="impDlg" aria-labelledby="impTitle">
+  <div class="dlg-h"><h2 id="impTitle">Import</h2>
+    <div class="seg" role="tablist">
+      <button class="btn act" data-imp="ifc" role="tab" type="button">IFC model</button>
+      <button class="btn" data-imp="stl" role="tab" type="button">STL files</button>
+      <button class="btn" data-imp="pdf" role="tab" type="button">Fab Sheets (PDF)</button>
+    </div>
+    <button class="btn" id="impClose" type="button"><svg class="i"><use href="#i-x"/></svg>Close</button></div>
+  <div class="dlg-b">
+    <div class="note info" id="impMode" style="margin:0 0 12px"></div>
+    <section id="imp-ifc">
+      <div class="drop" id="dropIfc">
+        <p class="dt">Drop a new IFC model here (.ifc, or a .zip that contains one)</p>
+        <label class="btn primary">Choose IFC file<input id="fileIfc" type="file" accept=".ifc,.zip" hidden></label>
+        <p class="dh">The file is converted in this browser and never uploaded anywhere. It is checked first (IFC schema, stones with TICKET NUMBER, geometry). Nothing changes until you press <b>Replace the current model</b>; if anything fails, the current model stays. The new model replaces the old one completely: there is no merging. A 1.4 GB IFC needs a computer with at least 8 GB of memory and takes several minutes.</p>
+      </div>
+      <div class="pbar" hidden><div class="track"><i></i></div></div>
+      <div class="prog"></div>
+      <div class="imp-res res"></div>
+      <div class="extra"></div>
+    </section>
+    <section id="imp-stl" hidden>
+      <div class="drop" id="dropStl">
+        <p class="dt">Drop STL files or ZIP archives of STL files here</p>
+        <label class="btn primary">Choose files<input id="fileStl" type="file" accept=".stl,.zip" multiple hidden></label>
+        <p class="dh">Each file must be named exactly like the IFC ticket number: <b>TICKET.stl</b> (binary or ASCII STL). Files for tickets that are not in the IFC model are rejected. A new file replaces the current one of that ticket. The IFC model is not changed or re-imported.</p>
+      </div>
+      <div class="prog"></div><div class="imp-res res"></div><div class="extra"></div><div class="local"></div>
+    </section>
+    <section id="imp-pdf" hidden>
+      <div class="drop" id="dropPdf">
+        <p class="dt">Drop Fab Sheet PDFs or ZIP archives of PDFs here</p>
+        <label class="btn primary">Choose files<input id="filePdf" type="file" accept=".pdf,.zip,application/pdf,application/zip" multiple hidden></label>
+        <p class="dh">Accepted names: <b>TICKET.pdf</b> or <b>TICKET - TICKET.pdf</b> (extra sheets: TICKET__2.pdf). The ticket must be in the IFC model. A new file replaces the current sheet of that ticket.</p>
+      </div>
+      <div class="prog"></div><div class="imp-res res"></div><div class="extra"></div><div class="local"></div>
+    </section>
+  </div>
+</dialog>
+
+<dialog id="helpDlg" aria-labelledby="helpTitle">
+  <div class="dlg-h"><h2 id="helpTitle">How the numbers are counted</h2><button class="btn" id="helpClose" type="button"><svg class="i"><use href="#i-x"/></svg>Close</button></div>
+  <div class="dlg-b" id="helpBody"></div>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="assets/viewer.js"></script>
+<script src="assets/stl-viewer.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
